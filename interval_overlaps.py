@@ -12,6 +12,20 @@ def interval_overlaps(*intervals):
     ij = sorted(intervals)
     return list(chain(*ij)) != sorted(chain(*ij))
 
+def interval_intersection(*intervals):
+    """
+        Returns the interval corresponding to the
+        intersection of two intervals
+        
+        > interval_intersection([1,3],[2,4])
+
+        rerturns [2,3]
+    """
+    max_st = max(ij[0] for ij in intervals)
+    min_end = min(ij[1] for ij in intervals)
+    if max_st < min_end:
+        return (max_st, min_end)
+
 def interval_list_overlaps(il1, il2):
     """
         Given two lists of intervals, returns the indices

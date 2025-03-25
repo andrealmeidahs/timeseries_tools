@@ -1,6 +1,18 @@
 import interval_overlaps as io
+from datetime import datetime
 import unittest
 
+
+class TestIntervalIntersect(unittest.TestCase):
+    def test_single_interval_overlap(self):
+        i1 = (1,3)
+        i2 = (2,4)
+        self.assertEqual(io.interval_intersection(i1,i2), (2,3))
+
+    def test_time_interval_overlap(self):
+        i1 = (datetime(2020,1,1,10,00), datetime(2020,1,2,10,00))
+        i2 = (datetime(2020,1,1,14,00), datetime(2020,1,1,16,00))
+        self.assertEqual(io.interval_intersection(i1,i2), i2)
 
 class TestIntervalOverlap(unittest.TestCase):
     def test_edge_ovl_interval_pair(self):
