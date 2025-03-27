@@ -47,6 +47,7 @@ class TestIntervalOverlap(unittest.TestCase):
         self.assertTrue(io.interval_overlaps(i1,i2,i3))
 
 
+
 class TestIntervalListOverlap(unittest.TestCase):
     def test_single_interval_overlap(self):
         il1 = [(1,3),(4,6)]
@@ -57,6 +58,16 @@ class TestIntervalListOverlap(unittest.TestCase):
         il1 = [(1,3),(4,6)]
         il2 = [(-1,0),(3.5,4.5),(5,9)]
         self.assertEqual(io.interval_list_overlaps(il1,il2),[(1,1),(1,2)])
+
+    def test_missing_interval_throw(self):
+        il1 = [(1,3),(4,6)]
+        il2 = [(-1,0),(None,None),(5,9)]
+        self.assertRaises(Exception, io.interval_list_overlaps, (il1,il2))
+
+    def test_missing_interval_ignores(self):
+        il1 = [(1,3),(4,6)]
+        il2 = [(-1,0),(None,None),(5,9)]
+        self.assertEqual(io.interval_list_overlaps(il1,il2,ignore_missing=True), [(1,2)])
 
 if __name__ == "__main__":
     unittest.main()
